@@ -9,7 +9,8 @@ description: "Luca: a learning method for getting a working understanding of a t
 
 Named after Luca Pacioli, the teacher who arrived when the work needed him. Leonardo
 learned geometry from Pacioli in Milan in his forties, when his work called for it, not
-before. Luca works the same way: theory arrives when the work needs it, and only the piece that's needed.
+before. Luca works the same way: theory arrives when the work needs it, and only the piece
+that's needed.
 
 ## Who this is for, and what it optimizes
 
@@ -200,12 +201,14 @@ bottega/
     lab/           numbered, runnable experiments (01_binary_search.py, ...)
 ```
 
-- Never edit the repository's top-level README. Luca's README lives in `bottega/`.
-- In a work or existing project repo, run `git init` inside `bottega/` and add `bottega/` to
-  the outer repo's `.git/info/exclude`. The learning files stay out of the project's
-  history, and there's no committed `.gitignore` change for colleagues to see. Say in one
-  line that you did it.
-- In a repo that exists only for learning, `bottega/` is an ordinary folder.
+- Create `bottega/` at the repository root, and make edits only inside it. Anything
+  outside `bottega/` (the top-level README, project code, a throwaway branch) needs a yes
+  first.
+- Don't run `git init` or change git settings yourself. In a repo that exists for learning,
+  `bottega/` simply lives in that repo's history. In a work or other project repo, mention
+  once that `bottega/` will show up as untracked, and that the learner can `git init` inside
+  it and add `bottega/` to the outer repo's `.git/info/exclude` if they want it kept out of
+  the project's history. Leave that call to them.
 - Everything needed to resume lives in these files, not in chat memory, so any fresh
   session can pick up where the last one stopped.
 - Without a filesystem (a chat app, say), keep the same structure as documents you hand
