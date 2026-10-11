@@ -1,51 +1,99 @@
-# Luca Map — [Domain Name]
+# Bottega templates
 
-*Persistent landscape file for this domain. Updated across many sessions — not a single-session log (see session-log-template.md for that). Revisit and edit this file directly as sessions close.*
-
-**Created:** [date]
-**Last updated:** [date]
+Three files per workspace. MAP.md is the one that matters most: it's the live plan, the
+progress record, and the resume point, all in one place so nothing drifts between files.
 
 ---
 
-## Regions
+## `bottega/<topic>/MAP.md`
 
-For each region: what it is, the concrete things inside it, and a status per item.
+```markdown
+# [Topic]: Luca map
 
-Status key: 🟢 built/internalized · 🟡 touched but shaky · 🔴 not yet touched · 🧩 flagged blind spot, not yet decided if/when to chase
+**Goal (learner's words):** "[verbatim]"
+**Studying:** topic | codebase · **Target rung:** Scout (default) · **Stakes:** [codebases only]
+**Created:** [date] · **Last updated:** [date]
 
-### 0. Foundations (often-skipped theory layer)
-- [ ] Item — 🔴/🟡/🟢/🧩
+## Level contract
+- **Target:** Scout (aka Orient)
+- **This gives you:** [e.g. what each region is for, what it assumes, where it fits]
+- **This won't give you:** [e.g. writing it from memory in two weeks]
+- **Next rung would take:** [e.g. one more stop per item, writing from a blank file]
 
-### 1. [Region name]
-- [ ] Item — status
+Ladder: Scout (Orient) → Wield (Apply) → Reforge (Rebuild) → Vouch (Own)
+Status: 🔴 not touched · 🧩 flagged, not yet chased · 🟡 touched, below target ·
+🟢 [rung] reached, with evidence
 
-### 2. [Region name]
-- [ ] Item — status
+## Map
 
-*(Add regions as the domain's actual structure demands — don't force every domain into the same number of regions.)*
+[Mermaid diagram when the structure matters]
+
+### 0. Foundations (the layer project-driven learning tends to skip)
+- [Item]: 🧩
+- **Questions worth asking:** [1–2 questions a practitioner would ask here]
+
+### 1. [Region]
+- [Item]: 🟢 Scout (predicted all three outputs correctly) · next: Wield
+- [Item]: 🔴
+- **Questions worth asking:** ...
+
+[As many regions as the real structure needs. Don't force every domain into one shape.]
+
+## Route
+*Level contract applies. Tick or defer every item before leaving a stop.*
+
+- [x] **Stop 1: [name]** (Scout, ~15 min)
+  - [x] [item]
+  - [x] [item]
+- [ ] **Stop 2: [name]** (Scout, ~15 min)
+  - [ ] [item]
+  - [ ] [item]: deferred, [reason]
+
+## Click lines
+- [date] [item]: confused by [X]; clicked when [Y].
+- [date] [item]: predicted [A], got [B], because [C].
+
+**Next recall:** [item] ([rung studied at])
+
+## Open blind spots (🧩)
+- [item]: [why it's adjacent to what was built]
+
+## History
+| Date | Stops | Takeaway |
+|---|---|---|
+| | | |
+```
 
 ---
 
-## Entry sequence (proposed order through the regions)
+## `bottega/<topic>/TODO.md`
 
-1.
-2.
-3.
+Shared by the learner and Luca. The learner adds lines freely; Luca adds parked questions and
+TODO comments found in code. Keep one list per topic so a TODO never lives in two places.
 
-*Rationale: pick items from different regions early, for breadth-of-feel across the whole landscape before depth in any one corner — unless the person has a specific reason to go deep on one region first.*
+```markdown
+# TODO: [Topic]
+
+- [ ] [The learner's own TODO]
+- [ ] [Parked question from a session] (from stop 3, [date])
+- [ ] [TODO comment found in code] (`path/to/file.c:42`)
+```
 
 ---
 
-## Session history
+## `bottega/README.md`
 
-| Date | Session log file | Region(s) covered | Notes |
+Luca's own README. The repository's top-level README is never touched.
+
+```markdown
+# Bottega
+
+Luca's workshop: learning maps and experiments. Each topic folder has a MAP.md (the plan and
+progress), a TODO.md, and a lab/ of runnable experiments.
+
+| Topic | Target rung | Last session | Next |
 |---|---|---|---|
-| | | | |
+| [topic](topic/MAP.md) | Scout | [date] | Stop 3: [name] |
 
----
-
-## Open blind spots (🧩 items, carried forward)
-
-List items flagged in any session that haven't been chased or explicitly dismissed yet. Pull from Phase 5 capture blocks as sessions close.
-
--
+**To resume:** open this README, then the topic's MAP.md and TODO.md.
+```

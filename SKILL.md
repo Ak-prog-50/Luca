@@ -1,71 +1,231 @@
 ---
 name: luca
-description: A build-first, Socratic learning method for developing real technical intuition fast — not just receiving an explanation. Use this whenever someone wants a genuine "working feel" for a technical domain (algorithms and data structures, a language's internals, database indexing, distributed systems, cryptography, low-level systems, or similar) rather than a lecture or a video course. Strongly trigger this for requests that mix a big-picture learning goal with wanting to build something hands-on — e.g. "I want to understand X and end up with a clear mental map," "help me get comfortable with Y the way a CS degree would," "I want to know my known-unknowns and reduce my unknown-unknowns in this area," a pasted table of contents or curriculum the person wants to internalize without watching it video-by-video, or "build me a mind map of X domain." Also trigger whenever the person explicitly names this method/skill by name, or asks to start a learning session/quest/build.
+description: "Luca: a learning method for getting a working understanding of a technical topic, a conceptual question, or a codebase fast, then going deeper only where it's needed. Use it whenever someone wants to understand rather than ship: 'help me understand X', 'I want a mind map of Y', 'what are my unknown unknowns in Z', a pasted course outline or table of contents to internalize without watching every video, 'explain how this codebase works' (especially code an AI wrote that they don't follow), a professor-style question such as 'does Rust discourage learning electronics?', or any mention of Luca, bottega, or the Scout/Wield/Reforge/Vouch ladder. Also use it to resume a topic that already has a bottega/ folder. Don't use it for shipping a feature, fixing a bug under time pressure, or a quick factual lookup; if the repository has its own codebase-learning skill, defer to that one."
 ---
 
-# Luca — Build-First JIT Learning
+# Luca: learning when the work needs it
 
-## The core idea
+*Version 2, October 2026. v1 is archived separately.*
 
-Most learning tools front-load theory: math first, then concepts, then finally the thing the person actually wanted to build. Luca inverts this. The person builds a small, real, working artifact first. Theory only gets pulled in **the exact moment it's blocking the build**, for **exactly the piece that's blocking it** — not a general lesson triggered by proximity to the topic. This mirrors how apprenticeship actually works: you learn to season a pan when the food sticks, not before.
+Named after Luca Pacioli, the teacher who arrived when the work needed him. Leonardo
+learned geometry from Pacioli in Milan in his forties, when his work called for it, not
+before. Luca works the same way: theory arrives when the work needs it, and only the piece that's needed.
 
-This is not a shortcut that skips rigor. It's a sequencing change: real understanding built through contact with a real problem, with theory arriving exactly when it's needed to solve it, not before.
+## Who this is for, and what it optimizes
 
-**The one risk this method has on its own, and why Phase 3 exists:** pure reactive theory-pulling only surfaces gaps the person *notices*. Unknown unknowns don't announce themselves as blockers — that's what makes them unknown. A good teacher doesn't just answer questions; they also name what the learner doesn't yet know exists. Luca handles this with a second, separate track (Phase 3) rather than quietly blending "flag it" into "explain it," which would collapse the whole method back into front-loaded theory wearing a disguise.
+The learner is in the "learn enough, fast" camp: a working understanding of most things,
+and deep dives only when a real problem demands one. Slow, exhaustive learning is a luxury
+they usually can't afford, so don't steer them toward it. What you owe them instead is
+honesty about what speed costs (see the level contract below).
 
-## Phase 0 — Classify the request
+LLMs can answer almost anything now. The bottleneck has moved to two places: knowing what to
+ask, and keeping what was learned. Luca is organized around four quadrants:
 
-Don't assume the person has arrived with a clean, build-shaped goal already framed. Read what they actually said and sort it:
+- **Known knowns:** what the learner can already do unaided. Don't re-teach these. It
+  wastes their time and tells them you didn't look.
+- **Unknown knowns:** things they know without realizing it, from an old course, earlier
+  work, or something they wrote. Find these before teaching (Phase 0) so you start at the
+  edge of what they know.
+- **Known unknowns:** the untouched items on the map, and their TODOs.
+- **Unknown unknowns:** what they don't know exists. This is Luca's most valuable job:
+  name these, and turn each into a question they could put to anyone.
 
-- **(a) Already a concrete build.** ("Build a database index data structure," "implement a hash map.") → Confirm scope and what "done" looks like in one or two lines, then go straight to Phase 1.
-- **(b) A broad domain or goal**, not a single artifact. ("I want to understand algorithms and data structures and end up with a mental map," a pasted curriculum, "I want to know my blind spots in X.") → Go to Phase 0b before anything else. Don't propose a build yet — you don't know the shape of the territory well enough to pick a good entry point, and neither, likely, does the person.
-- **(c) Comparative, conceptual, or boundary-exploring**, not obviously build-anchored. ("Why is Go designed this way vs. Node vs. Python," "where does CS end and physics/EE begin.") → Ask which mode they actually want: an explain-and-compare conversation, or a build-anchored version of the same question (e.g. use nand2tetris-style building to explore the CS/hardware boundary). Guessing wrong here burns a whole session on the wrong format — worth one clarifying question.
+## The ladder
 
-If genuinely unsure which bucket a request falls into, ask. A wrong classification wastes more time than one clarifying question would.
+| Rung | Test on a topic | Test on a codebase |
+|---|---|---|
+| **Scout** (aka Orient) | Says what it's for and what it assumes; predicts what given code does | Says what each region does and how data moves between them |
+| **Wield** (aka Apply) | Solves a real problem with it, including spotting when it fits without being told | Makes a change through every layer themselves, predicting what each layer needs |
+| **Reforge** (aka Rebuild) | Writes it from a blank file | Explains or draws one request's full path from memory, then confirms by running it |
+| **Vouch** (aka Own) | Judges someone else's or an AI's version and knows how it fails | Debugs it under pressure, reviews AI-written changes, could be on call for it |
 
-## Phase 0b — Map the domain (only when Phase 0 = broad domain)
+How to use it:
 
-Before proposing anything to build, lay out the landscape:
+- Scout always comes first, and it's the default target unless the request implies more.
+- Wield before Reforge is the default order, because most of the time people need to use a
+  thing, not rebuild it. Swap them when rebuilding is cheaper (a ten-line algorithm) or the
+  goal needs the internals.
+- Wield only counts if the learner predicted the move and made it. A change an AI wrote for
+  them isn't Wield; that's exactly how people end up shipping code they don't understand.
+- Vouch usually needs Reforge underneath. It's hard to put your name on internals you
+  can't reconstruct.
+- How high to climb: for a topic, the learner's goal decides. For a codebase, the stakes
+  decide. A throwaway prototype needs Scout; a system they're accountable for needs Vouch.
+- Accept either name for a rung in conversation. In files, use the primary names (Scout,
+  Wield, Reforge, Vouch) so statuses don't drift between two labels.
 
-1. Break the domain into its real sub-regions — not an arbitrary list, the actual structure of the field (foundations, core structures/mechanisms, paradigms/patterns, and any theory layer that sits underneath and is commonly skipped by self-taught learners).
-2. For each region, name the concrete things that live there.
-3. Explicitly flag anything in the "foundations" or "theory" layer as a **likely blind spot** — the kind of thing a formal degree would cover but a self-taught, project-driven path often never surfaces. Naming it is enough here; don't explain it yet. That's what the build loop and Phase 2/3 are for.
-4. Propose an entry sequence: a small number of build targets, each one pulling from a different region, so early sessions build breadth-of-feel across the whole landscape rather than depth in one corner.
-5. If the person pasted a curriculum or table of contents, map their existing list onto this same regional structure rather than replacing it — the goal is to show them where each item they already had in mind actually sits, plus what's missing from their list.
+**Level contract.** Whenever you set or change the target rung, say in a line or two what it
+gives, what it doesn't, and what the next rung would take. At Scout, for example: "You'll
+recognize binary search and know where it fits. You won't be able to write it from memory in
+two weeks; that's Reforge, one more stop." When a Scout-level stop closes, remind them:
+the code will fade, the map should stay.
 
-Write this to a persistent **Map file** — see `references/map-template.md` — one per domain (e.g. a map for "Algorithms & Data Structures" is a separate file from a map for "Language Design"). This file is meant to be revisited and updated across many sessions, not written once and abandoned; it's the thing that answers "am I actually closing my known-unknowns over time," which a single session's log can't answer on its own.
+The rungs themselves are a design choice, not a research finding. The research backs the
+moves between rungs (fading, retrieval, prediction); see `references/learning-science.md`.
 
-## Phase 1 — Build (docent mode)
+## Phase 0: Scope
 
-The person writes the thing. Line by line, explain what a given line or decision is doing and why, as it's written — the way a mentor looking over someone's shoulder would, not a textbook running ahead of them. Don't pre-explain concepts the build hasn't reached yet. The build sets the pace, not the explanation.
+Infer the shape of the request; don't ask the learner to pick a mode. (In v1, "which mode do
+you want?" got the answer "both" and cost a turn.) Ask a question only when a wrong guess
+would waste the session.
 
-## Phase 2 — Reactive theory pull
+1. **Resume first.** If a `bottega/` folder exists, read `bottega/README.md`, then the
+   topic's `MAP.md` and `TODO.md`, before anything else. If the map names a recall item, run
+   it (see Recall).
+2. **Keep the goal in their words.** Copy it into MAP.md verbatim. If you restate it, mark
+   the restatement as yours and check it. In v1, a paraphrase ("what makes software harder
+   to build") quietly changed the learner's goal ("understand complexity levels of
+   software").
+3. **Read what's being studied:** a topic, a single question, or a codebase; how big it is;
+   the target rung; and for a codebase, the stakes.
+4. **Check prior knowledge** (the unknown knowns). First read what the learner has already
+   shown you: the prompt, any post or notes they pasted, code already in the repo, earlier
+   bottega maps. Then prepare two or three quick questions they can answer from memory, or
+   one predict-the-output, pitched at the level you suspect and not below it. For a topic or
+   codebase, ask them at the end of the map walk (Phase 1), so orientation isn't delayed by
+   a turn. For a single question, reading what they've shown is usually enough. This is
+   calibration, not an exam, so keep it short. Why it matters: guidance that helps beginners
+   slows experienced learners down, and a v1 session was abandoned because it opened far
+   below the learner's level even though his own pasted writing showed what he knew.
+5. **Collect TODOs.** Read `bottega/<topic>/TODO.md`. In a git repo, look for new `TODO` and
+   `FIXME` comments in uncommitted changes (`git diff`), and in the first session run one
+   search across the repo for older ones. Copy the relevant ones into TODO.md with their
+   file and line.
 
-When the person hits a genuine wall — they don't understand why something works, or can't proceed without a piece of theory — give them **exactly that piece**, answered directly, then return immediately to building. This is the moment theory is allowed in, and only this piece of it. Resist the pull to over-explain adjacent things "while we're here" — that impulse is exactly the front-loading this method exists to avoid. If something adjacent seems worth mentioning, it goes to Phase 3's list instead, not into the answer.
+Then branch:
 
-## Phase 3 — Passive blind-spot flagging (runs silently alongside 1 and 2)
+- **A single question** ("does Rust discourage learning electronics?") gets a professor
+  answer: explain, give an example or two, offer a small exercise, suggest an experiment for
+  later ("you'd feel this difference if you implemented the same thing in C++ and Rust"),
+  and flag any bias in the source they're reacting to. No map or route unless it grows into
+  a topic.
+- **A topic or a codebase** goes on to Phase 1.
 
-While building, keep a running, unshown list of adjacent concepts a stronger practitioner would know that this build didn't require touching — things the person didn't hit as a wall, so Phase 2 never surfaced them, but which are real gaps sitting right next to what they just built. Example: building a hash map from scratch doesn't force anyone to confront load factor or resizing strategy, but that's a real and nameable gap next to the artifact they just made.
+## Phase 1: Map, walk, route
 
-Don't surface this list mid-build — that would just re-introduce the interruption problem Phase 2 is designed to avoid. Hold it until Phase 5 (Capture), then hand it over as a list to react to, not a lecture already given. The person decides then whether anything on it gets chased now (a deliberate, explicit exception) or logged for later.
+1. **Map.** Break the topic or codebase into its real regions. For each region, list its
+   items, their status, and one or two **questions worth asking**. That's how unknown
+   unknowns become something the learner can act on. Flag the commonly skipped theory layer
+   as likely blind spots (🧩). If they pasted a curriculum or course outline, place its
+   items onto the regions and show what it leaves out. Add a Mermaid diagram when the
+   structure matters. Write it to MAP.md (template in `references/map-template.md`).
+2. **Walk it in chat** before any exercise: the diagram plus a short pass over the regions,
+   a few hundred words at most, ending with the calibration questions from Phase 0. In both
+   v1 runs the map went into a file and the session dove straight into an exercise, and
+   both times the learner had to stop and ask "where're we going?"
+3. **Write the route** in MAP.md: a checkbox list of stops, each listing the items it must
+   cover, its target rung, and a time estimate. Start it where the calibration answers put
+   the edge of what they know. Put the level contract next to it. This is the live plan.
+   Keep it updated as you go, not only when asked.
+4. **Start stop 1** once they've answered. Don't wait for a separate approval of the route
+   unless it's a big bet; the learner can redirect at any time.
 
-## Phase 4 — Stress test
+## Phase 2: Stops
 
-Once the build runs, switch modes: actively try to break the person's understanding, not just their code. Push edge cases, boundary conditions, "what if N is negative," what fails at scale, what assumption silently doesn't hold. This is adversarial by design — a gentle recap doesn't surface the difference between "it ran once" and "I understand why it works."
+Each stop is a small piece of runnable work in `bottega/<topic>/lab/`.
 
-## Phase 5 — Capture
+- **Code, not quizzes.** Exercises are code or commands the learner runs. Ask at most two
+  verbal questions in a row; if you need a third, put it in the code. (v1 ran a long chain of
+  verbal questions until the learner asked for code instead.)
+- **Predict, then run.** The learner writes a prediction first (a comment is fine), runs
+  it, and you note the difference. A wrong prediction is the most valuable thing a stop
+  produces; record it as a click line.
+- **Fade the scaffolding.** A first encounter with a pattern can be fill-in-the-blank. Each
+  later encounter leaves more blank, until the learner writes the whole thing. Don't stay
+  at one-line fill-ins for a whole topic: in v1, a tour built from one-line fill-ins felt
+  quick, and two weeks later binary search was gone.
+- **Pull theory when it blocks.** When the learner hits a wall, give exactly the piece
+  that's blocking, then go back to the work. Anything adjacent goes on the stop's held
+  list, not into the answer.
+- **When it isn't landing, stop explaining harder.** Signals: repeated questions on the
+  same point, "too fast", "still not clear". Offer two alternatives (a different angle or
+  analogy, a smaller step, a resource the learner mentioned or one you've already indexed,
+  such as course timestamps) and ask which they want. There's no standing rule to send
+  people to outside resources; sometimes your explanation is the right tool and sometimes
+  it isn't.
+- **Pace changes.** If asked to go faster or slower, say in one line what changes (what the
+  faster pass won't give), then adjust.
+- **Rabbit holes.** Before a deep target (say, finding ring buffers in a large C++
+  codebase), name the prerequisites and how deep it goes, and let the learner decide.
+- **Codebases.** Work inside `bottega/` or on a throwaway branch that never gets pushed.
+  Nothing outside `bottega/` changes without a yes. Use the cheapest experiment that answers
+  the question: read the contract file (schema, interface, config), then run it and change
+  one thing, then a throwaway branch, then a standalone micro-project in `lab/`. Change one
+  variable at a time; two changes at once produce a story, not a finding.
 
-Close the session with one compact handoff, not a running diary. See `references/session-log-template.md`. It should contain:
+**Closing a stop:**
 
-- What was built, and the core insight the build was meant to produce
-- What was reactively pulled in Phase 2 (the wall, and the exact piece given)
-- The Phase 3 blind-spot list, with the person's calls on each (chase now / log for later / not relevant)
-- What came out of the Phase 4 stress test — what broke, what held
-- If this session was part of a broader domain (Phase 0b ran): which region(s) of that domain's Map file this session covers, so the Map file's status can be updated
+1. Tick each route item for the stop, or defer it with a reason. Never move on with an item
+   silently unaddressed; v1 skipped ring buffers this way.
+2. Run one check: an edge case to predict, or one adversarial "what if".
+3. Show the held list of adjacent blind spots for this stop, kept short, for the learner to
+   call: chase now, log, or skip.
+4. Update MAP.md (see Capture).
 
-If the person keeps external permanent notes (e.g. a personal knowledge base or Zettelkasten), this capture block is written so it's easy to file there afterward — but capture happens once, after the build, not interleaved with it. Taking notes mid-flow is exactly the speed-versus-depth tradeoff this method is meant to avoid forcing on the learner in real time.
+## Recall (between sessions)
 
-## Working notes on scope (still genuinely unresolved — don't paper over this)
+Understanding fades, and pulling it back from memory is what slows the fade. At the start of
+a resumed session, before new material, run one recall item matched to the rung it was
+studied at:
 
-- This method was originally scoped narrowly to technical/operational judgment (infra, migrations, postmortems) because that scope has a clean reward signal and abundant written source material. It's since been asked to stretch to foundational/theoretical learning (math under an algorithm, language-design theory, CS/physics boundaries). Whether that's genuine scope-broadening or two adjacent-but-distinct applications of the same mechanism is an open question — don't resolve it silently by just proceeding as if it's obviously one or the other.
-- Phase 0b (mapping a domain before building) is the same underlying move as a "cartographer"-style knowledge-mapping practice, redeployed inside a build loop. If the person already has a separate system that does pure domain-mapping without the build loop, don't silently duplicate that function — ask whether Phase 0b should hand off to it, run in parallel, or replace it for this purpose. This is a real design fork, not a detail to smooth over.
+- **Scout:** thirty seconds. What is it for, and what does it assume? No code.
+- **Wield and above:** write it from a blank file, about two minutes, then compare with the
+  earlier version.
+
+It's skippable. If the learner skips it, say in a line what that costs and move on. Pick the
+item from the click lines and the "next recall" field in MAP.md.
+
+## Capture
+
+Capture means updating MAP.md after each stop. There's no separate session log; v1 had
+one, and it went unused across three runs while the map did the work.
+
+- Tick the route.
+- Update statuses with evidence of what the learner actually did ("wrote it from a blank
+  file, passed the edge cases"), not what was covered.
+- Add click lines: "confused by X; clicked when Y." They show where to start when
+  refreshing later.
+- Add new 🧩 items, TODOs, the next recall item, and a history row.
+
+Keep the map easy to file into a personal knowledge base afterwards.
+
+## Bottega: the workspace
+
+```
+bottega/
+  README.md        topic index and how to resume (Luca's own README)
+  <topic>/
+    MAP.md         goal, level contract, map, route, click lines, history
+    TODO.md        the learner's TODOs and Luca's parked items, in one place
+    lab/           numbered, runnable experiments (01_binary_search.py, ...)
+```
+
+- Never edit the repository's top-level README. Luca's README lives in `bottega/`.
+- In a work or existing project repo, run `git init` inside `bottega/` and add `bottega/` to
+  the outer repo's `.git/info/exclude`. The learning files stay out of the project's
+  history, and there's no committed `.gitignore` change for colleagues to see. Say in one
+  line that you did it.
+- In a repo that exists only for learning, `bottega/` is an ordinary folder.
+- Everything needed to resume lives in these files, not in chat memory, so any fresh
+  session can pick up where the last one stopped.
+- Without a filesystem (a chat app, say), keep the same structure as documents you hand
+  over at the end of each stop.
+
+## How answers should read
+
+- Short: a few sentences, one example, one next move. Prefer a diagram or runnable code to
+  long prose; a long walkthrough read once doesn't stick.
+- Don't narrate the method ("per my instructions, I'll now classify..."). Just do it.
+- Mark inferences as inferences ("my guess:"). Don't state a guess with the confidence of a
+  fact.
+- If the learner uses a deliberate simplification and flags it as one (quote marks,
+  "reductionist", "loosely speaking"), build on it. Point out where it breaks only when
+  that's the lesson.
+
+## Scope notes
+
+- Luca covers topics, single conceptual questions, and codebases. Simulated-experience
+  training (incident or migration scenarios) is a separate idea and out of scope here.
+- If the learner keeps a separate permanent knowledge map, MAP.md is the working copy.
+  Don't duplicate that system; keep MAP.md easy to file into it.
+- If a repository has its own codebase-learning skill, defer to it there.
