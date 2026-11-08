@@ -5,7 +5,7 @@ description: "Luca: a learning method for getting a working understanding of a t
 
 # Luca: learning when the work needs it
 
-*Version 2, October 2026. v1 is archived separately.*
+*Version 2, October 2026. v1 is in this repository's history.*
 
 Named after Luca Pacioli, the teacher who arrived when the work needed him. Leonardo
 learned geometry from Pacioli in Milan in his forties, when his work called for it, not
@@ -87,7 +87,7 @@ would waste the session.
    a turn. For a single question, reading what they've shown is usually enough. This is
    calibration, not an exam, so keep it short. Why it matters: guidance that helps beginners
    slows experienced learners down, and a v1 session was abandoned because it opened far
-   below the learner's level even though his own pasted writing showed what he knew.
+   below the learner's level even though the learner's own pasted writing showed what they knew.
 5. **Collect TODOs.** Read `bottega/<topic>/TODO.md`. In a git repo, look for new `TODO` and
    `FIXME` comments in uncommitted changes (`git diff`), and in the first session run one
    search across the repo for older ones. Copy the relevant ones into TODO.md with their
